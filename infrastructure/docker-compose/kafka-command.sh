@@ -4,6 +4,9 @@ docker-compose exec kafka kafka-topics.sh --create --topic my-topic --bootstrap-
 ## 생성된 토픽 확인
 docker-compose exec kafka kafka-topics.sh --describe --topic my-topic --bootstrap-server localhost:9092
 
+## 토픽 모록 가져오기
+docker-compose exec kafka kafka-topics.sh --list --zookeeper zookeeper:2181
+
 ## 컨슈머 실행 하기 (컨슈머는 메세지를 컴슘하기 위해 대기하고 있어야)
 docker-compose exec kafka bash
 kafka-console-consumer.sh --topic my-topic --bootstrap-server localhost:9092
