@@ -23,11 +23,11 @@ public class KafkaDemoApplication {
     public ApplicationRunner runner(AdminClient adminClient) {
         return args -> {
             Map<String, TopicListing> topics = adminClient.listTopics().namesToListings().get();
-            topics.forEach((s, topicListing) -> {
+            topics.forEach((topicName, topicListing) -> {
                 System.out.println(topicListing);
 
                 try {
-                    Map<String, TopicDescription> descriptionMap = adminClient.describeTopics(Collections.singleton(s)).all().get();
+                    Map<String, TopicDescription> descriptionMap = adminClient.describeTopics(Collections.singleton(topicName)).all().get();
                     System.out.println(descriptionMap);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
@@ -35,6 +35,7 @@ public class KafkaDemoApplication {
                     throw new RuntimeException(e);
                 }
 
+                adminClient.deleteTopics(Collections.singleton(topicName));
             });
 
         };
