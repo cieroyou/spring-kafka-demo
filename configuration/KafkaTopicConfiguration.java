@@ -10,7 +10,11 @@ import org.springframework.kafka.core.KafkaAdmin;
 
 @Configuration
 public class KafkaTopicConfiguration {
-
+    // AdminClient 생성 -> ApplicationRunner runner 에서 직접 만든 AdminClient 사용가능)
+    @Bean
+    public AdminClient adminClient(KafkaAdmin kafkaAdmin){
+        return AdminClient.create(kafkaAdmin.getConfigurationProperties());
+    }
 
     @Bean
     public NewTopic newTopic() {
