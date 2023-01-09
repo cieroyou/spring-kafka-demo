@@ -18,7 +18,7 @@ public class KafkaDemoApplication {
         return args -> {
             newTopicProducer.async("new-topic", "hello");
             newTopicProducer.sync("new-topic", "hello-sync");
-            Thread.sleep(1000);
+            Thread.sleep(1000); // 슬립을 해야 hell-sync 까지 성공적으로 message 를 publish 함 없으면 두 메세지 모두 보내지 못하고 앱 종료
         };
     }
 

@@ -1,6 +1,5 @@
 package com.sera.kafkademo.producer;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
@@ -9,8 +8,14 @@ import java.util.concurrent.CompletableFuture;
 
 @Service
 public class NewTopicProducer {
-    @Autowired
     KafkaTemplate<String, String> kafkaTemplate;
+
+    public NewTopicProducer(KafkaTemplate<String, String> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
+
+    //    @Autowired
+//    RoutingKafkaTemplate routingKafkaTemplate;
 
     public void async(String topic, String message) {
         CompletableFuture<SendResult<String, String>> future = kafkaTemplate
@@ -34,4 +39,8 @@ public class NewTopicProducer {
 
         }
     }
+
+//    public void routingSend(String topic, String message) {
+//        routingKafkaTemplate.send(topic, message);
+//    }
 }
