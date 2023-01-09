@@ -1,10 +1,10 @@
 package com.sera.kafkademo;
 
+import com.sera.kafkademo.producer.NewTopicProducer;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.kafka.core.KafkaTemplate;
 
 @SpringBootApplication
 public class KafkaDemoApplication {
@@ -14,9 +14,12 @@ public class KafkaDemoApplication {
     }
 
     @Bean
-    public ApplicationRunner runner(KafkaTemplate<String, String> kafkaTemplate) {
+    public ApplicationRunner runner(NewTopicProducer newTopicProducer) {
         return args -> {
-            kafkaTemplate.send("new-topic", "hello");
+            newTopicProducer.async("new-topic", "hello");
+            newTopicProducer.sync("new-topic", "hello-sync");
+            Thread.sleep(1000);
         };
     }
+
 }
