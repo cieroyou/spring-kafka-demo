@@ -17,19 +17,7 @@ public class KafkaDemoApplication {
     public ApplicationRunner runner(NewTopicProducer newTopicProducer,
                                     KafkaMessageListenerContainer<String, String> kafkaMessageListenerContainer) {
         return args -> {
-            newTopicProducer.async("topic4", "hello, topic4 container.");
-            kafkaMessageListenerContainer.start();
-            Thread.sleep(1000);
-            System.out.println("------- pause --------");
-
-            kafkaMessageListenerContainer.pause(); //container pause() 를 하고 난 후에는 밑중 hello, secondary topic4 container. 을 읽지 않는다.
-            Thread.sleep(5000);
-            newTopicProducer.async("topic4", "hello, secondary topic4 container.");
-
-            kafkaMessageListenerContainer.resume();
-            System.out.println("------- resume --------");
-            Thread.sleep(5000);
-            newTopicProducer.async("topic4", "hello, third topic4 container.");
+            newTopicProducer.async("topic4-listener", "hello topic4-listener");
         };
     }
 
