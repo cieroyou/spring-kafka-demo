@@ -1,5 +1,6 @@
 package com.sera.kafkademo.consumer;
 
+import com.sera.kafkademo.model.Animal;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.listener.adapter.ConsumerRecordMetadata;
 import org.springframework.kafka.support.KafkaHeaders;
@@ -11,7 +12,6 @@ public class TopicConsumer {
 
     //    @KafkaListener(id="topic4-listener-id", topics = "topic4-listener", concurrency = "2", clientIdPrefix = "listener-id")
     @KafkaListener(id = "topic4-listener-id", topics = "topic4-listener")
-
     // thread 개수를 늘릴수록 빨라지고, concurrency 를 쉽게 늘릴 수 있다.
     public void listen(String message,
                        @Header(KafkaHeaders.RECEIVED_TIMESTAMP) long timestamp,
@@ -23,5 +23,10 @@ public class TopicConsumer {
                 ", timestamp=" + timestamp +
                 ", offset=" + offset +
                  ",message=" + message);
+    }
+
+    @KafkaListener(id = "topic4-animal-id", topics = "topic4-animal")
+    public void listenAnimal(Animal animal) {
+        System.out.println("Animal. animal=" + animal);
     }
 }
