@@ -2,10 +2,13 @@ package com.sera.kafkademo.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Max;
+import jdk.jfr.MemoryAddress;
 
 public class Animal {
 
     private String name;
+    @Max(10)
     private int age;
 
     @JsonCreator

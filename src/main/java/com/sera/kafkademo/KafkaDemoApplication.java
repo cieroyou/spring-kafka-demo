@@ -16,7 +16,8 @@ public class KafkaDemoApplication {
     @Bean
     public ApplicationRunner runner(NewTopicProducer newTopicProducer) {
         return args -> {
-            newTopicProducer.async("topic4-animal", new Animal("puppy", 15));
+            newTopicProducer.async("topic4-animal", new Animal("puppy-valid", 9));
+            newTopicProducer.async("topic4-animal", new Animal("puppy", 15)); // 에러 발생(ListenerExecutionFailedException: Listener method could not be invoked with the incoming message)
         };
     }
 

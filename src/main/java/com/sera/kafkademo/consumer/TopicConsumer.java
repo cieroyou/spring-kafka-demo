@@ -1,6 +1,7 @@
 package com.sera.kafkademo.consumer;
 
 import com.sera.kafkademo.model.Animal;
+import jakarta.validation.Valid;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.listener.adapter.ConsumerRecordMetadata;
 import org.springframework.kafka.support.KafkaHeaders;
@@ -26,7 +27,7 @@ public class TopicConsumer {
     }
 
     @KafkaListener(id = "topic4-animal-id", topics = "topic4-animal")
-    public void listenAnimal(Animal animal) {
+    public void listenAnimal(@Valid Animal animal) {
         System.out.println("Animal. animal=" + animal);
     }
 }
