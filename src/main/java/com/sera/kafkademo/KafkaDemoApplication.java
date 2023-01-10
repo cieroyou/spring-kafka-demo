@@ -5,6 +5,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.kafka.listener.KafkaMessageListenerContainer;
 
 @SpringBootApplication
 public class KafkaDemoApplication {
@@ -13,8 +14,11 @@ public class KafkaDemoApplication {
     }
 
     @Bean
-    public ApplicationRunner runner(NewTopicProducer newTopicProducer) {
+    public ApplicationRunner runner(NewTopicProducer newTopicProducer,
+                                    KafkaMessageListenerContainer<String, String> kafkaMessageListenerContainer) {
         return args -> {
+            newTopicProducer.async("topic4", "hello, topic4 container.");
+            kafkaMessageListenerContainer.start();
         };
     }
 
